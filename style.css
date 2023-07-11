@@ -1,0 +1,278 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+
+  --color-base-white: hsl(0, 0%, 100%);
+  --color-base-blue: hsl(195, 91%, 25%);
+  --color-base-title: hsl(240, 6%, 13%);
+  --color-base-content: hsl(240, 5%, 7%);
+  --color-base-footer: #387e96;
+}
+
+body,
+input {
+  font-family: "Mulish", sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.blog {
+  width: 100%;
+  max-width: 430px;
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  margin-inline: auto;
+}
+
+header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  gap: 2.6rem;
+
+  padding: 1.2rem 2.8rem;
+
+  background-color: var(--color-base-blue);
+}
+
+header form {
+  flex: 1;
+}
+
+.input-wrapper label {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  color: var(--color-base-white);
+}
+
+.input-wrapper input {
+  border: 0;
+  border-radius: 0.4rem;
+
+  width: 100%;
+  padding: 1.2rem 1.6rem;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.input-wrapper input::placeholder {
+  color: var(--color-base-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.avatar {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  object-fit: cover; /* cobre os espaços que passarem da imagem para não deixar ela esticada */
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.content,
+.related-articles {
+  padding: 0 2.6rem 0 2.2rem;
+  margin-top: 3.2rem;
+}
+
+.content h1,
+.related-articles h2 {
+  color: var(--color-base-title);
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.post img {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  display: inline-block;
+  margin-top: 0.8rem;
+}
+
+.buttons button {
+  width: 4rem;
+  height: 4rem;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--color-base-blue);
+
+  padding: 1.2rem;
+
+  cursor: pointer;
+}
+
+.buttons button:nth-child(1) {
+  margin-right: 0.8rem;
+}
+
+.buttons button:hover {
+  background-color: #097aa0;
+}
+
+.content p {
+  color: var(--color-base-content);
+  font-size: 1.6rem;
+  font-weight: 400;
+
+  margin-top: 3.1rem;
+}
+
+.articles {
+  display: grid;
+  gap: 3.2rem;
+
+  margin-top: 3.2rem;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.item img {
+  width: 16rem;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.item h3 {
+  color: var(--color-base-title);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.item p {
+  color: var(--color-base-content);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 160%;
+
+  width: 21.5rem;
+  margin-top: 0.4rem;
+}
+
+footer {
+  height: 6.4rem;
+  margin-top: 4rem;
+  background-color: var(--color-base-footer);
+
+  color: var(--color-base-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* animations */
+header {
+  --startY: -100%;
+  animation: move 0.2s;
+}
+
+footer {
+  --startY: 100%;
+  animation: move 0.2s;
+}
+
+@keyframes move {
+  from {
+    transform: translateY(var(--startY));
+  }
+}
+
+.item {
+  --delay: 0.4s;
+  animation: appear 0.4s var(--delay) backwards; /* backwards serve para puxar as informações */
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0; /* deixa invisível */
+    transform: scale(0.8); /* diminui o tamanho inicialmente */
+  }
+
+  50% {
+    transform: scale(1.1); /* aumenta o tamanho na metade da animação */
+  }
+}
+
+/* responsive */
+@media (min-width: 1120px) {
+  .blog {
+    max-width: fit-content;
+    display: grid;
+    grid-template-areas: "header header" "post articles" "footer footer";
+    grid-template-columns: 100% 0.5fr;
+    grid-template-rows: auto;
+  }
+
+  header {
+    grid-area: header;
+    padding: 1.2rem 11.2rem;
+  }
+
+  main {
+    display: flex;
+    flex-direction: row;
+    padding: 4.4rem 10.9rem 3.9rem;
+
+    gap: 3.4rem;
+  }
+
+  .post {
+    grid-area: post;
+    max-width: 80.3rem;
+  }
+
+  .content {
+    padding: 0;
+  }
+
+  .related-articles {
+    grid-area: articles;
+    max-width: fit-content;
+
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .articles {
+    margin-top: 1.6rem;
+  }
+
+  footer {
+    grid-area: footer;
+    margin-top: 0;
+  }
+}
